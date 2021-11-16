@@ -96,7 +96,7 @@ def ohe_prep(df, column, new_name):
         tf_df: One hot encoded features 
     """
     
-    tf_df = pd.get_dummies(df[column])
+    tf_df = pd.get_dummies(df[column],sparse=True)
     feature_names = tf_df.columns
     tf_df.columns = [new_name + "|" + str(i) for i in feature_names]
     tf_df.reset_index(drop = True, inplace = True)    
