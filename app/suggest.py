@@ -124,8 +124,8 @@ def create_feature_set(df, float_cols):
     # genre_df.reset_index(drop = True, inplace=True)
 
     #explicity_ohe = ohe_prep(df, 'explicit','exp')    
-    year_ohe = ohe_prep(df, 'year','year') * 0.5
-    popularity_ohe = ohe_prep(df, 'popularity_red','pop') * 0.15
+    # year_ohe = ohe_prep(df, 'year','year') * 0.5
+    # popularity_ohe = ohe_prep(df, 'popularity_red','pop') * 0.15
 
     #scale float columns
     floats = df[float_cols].reset_index(drop = True)
@@ -136,7 +136,7 @@ def create_feature_set(df, float_cols):
     # final = pd.concat([genre_df, floats_scaled, popularity_ohe, year_ohe], axis = 1, sparse = True)
      
     #add song id
-    final['id']=df['id'].values
+    # final['id']=df['id'].values
     final ="abc"
     return final
     
