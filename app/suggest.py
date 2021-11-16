@@ -10,7 +10,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 
-
+import sklearn
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy.oauth2 import SpotifyOAuth
@@ -96,7 +96,7 @@ def ohe_prep(df, column, new_name):
         tf_df: One hot encoded features 
     """
     
-    tf_df = pd.get_dummies(df[column],sparse=True)
+    tf_df = sklearn.preprocessing.OneHotEncoder(df[column],sparse=True)
     feature_names = tf_df.columns
     tf_df.columns = [new_name + "|" + str(i) for i in feature_names]
     tf_df.reset_index(drop = True, inplace = True)    
@@ -133,11 +133,11 @@ def create_feature_set(df, float_cols):
     floats_scaled = pd.DataFrame(scaler.fit_transform(floats), columns = floats.columns) * 0.2
 
     #concanenate all features
-    final = pd.concat([genre_df, floats_scaled, popularity_ohe, year_ohe], axis = 1)
+    final = pd.concat([genre_df, floats_scaled, popularity_ohe, year_ohe], axis = 1, sparse = True)
      
     #add song id
     final['id']=df['id'].values
-    
+    final ="abc"
     return final
     
 
