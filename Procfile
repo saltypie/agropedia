@@ -1,0 +1,1 @@
+web: gunicorn agropedia.wsgi --log-file -
