@@ -16,7 +16,7 @@ from . import suggest
 # Create your views here.
                  
 class PlantsSuggest(APIView):
-    def get(self, request, format=None):
-        
-        theres = suggest.suggester()
-        return Response({'songs':theres})            
+    def get(self, request, *args,**kwargs):
+        query = self.kwargs.get('params', None)
+        res = suggest.suggester(query)
+        return Response({'songs':res})            

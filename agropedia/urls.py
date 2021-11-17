@@ -25,12 +25,12 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 schema_view = get_schema_view(
    openapi.Info(
-      title="Agropedia API",
+      title="Songs API",
       default_version='v1',
-      description="API for Agropedia",
+      description="API for Spotify reccomendations",
       terms_of_service="https://www.agropedia.com/policies/terms/",
-      contact=openapi.Contact(email="agropidea@google.local"),
-      license=openapi.License(name="AGRO License"),
+      contact=openapi.Contact(email=""),
+      license=openapi.License(name="MIT License"),
    ),
    public=True,
    permission_classes=(permissions.AllowAny,),

@@ -10,7 +10,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics.pairwise import cosine_similarity
 import json
 ####
-def suggester():
+def suggester(query):
   spotify_data = pd.read_csv('SpotifyFeatures.csv')
 
   ####
@@ -55,7 +55,7 @@ def suggester():
   sp = spotipy.Spotify(auth_manager=auth_manager)
   playlist_dic = {}
   playlist_cover_art = {}
-  results = sp.search(q="80s", type='playlist')
+  results = sp.search(q=query, type='playlist')
   resultss = results["playlists"]["items"]
   for i in resultss:
       playlist_dic[i['name']] = i['uri'].split(':')[2]
@@ -81,7 +81,7 @@ def suggester():
       playlist = playlist[playlist['track_id'].isin(spotify_data['track_id'].values)].sort_values('date_added',ascending = False)
 
       return playlist
-  playlist_df = generate_playlist_df('80s Mix', playlist_dic, spotify_data) 
+  playlist_df = generate_playlist_df(query, playlist_dic, spotify_data) 
 
   ####
 
@@ -130,7 +130,7 @@ def suggester():
       return  non_playlist_top15
   ######
   top15 = generate_recommendation(spotify_data, playlist_vector, nonplaylist_df) 
-  return json.dumps(json.loads(top15.to_json(orient='records')), indent=2)
+  return top15.to_json(orient='records')
   ######
 
 
