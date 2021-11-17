@@ -18,5 +18,6 @@ from . import suggest
 class PlantsSuggest(APIView):
     def get(self, request, *args,**kwargs):
         query = self.kwargs.get('params', None)
+        query = query.replace("%20", " ")
         res = suggest.suggester(query)
         return Response({'songs':res})            
