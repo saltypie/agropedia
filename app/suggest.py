@@ -22,7 +22,9 @@ warnings.filterwarnings("ignore")
 spotify_df = pd.read_csv('data.csv')
 
 
-data_w_genre = pd.read_csv('data_w_genres.csv')
+# data_w_genre = pd.read_csv('data_w_genres.csv')
+data_w_genre = pd.read_csv('data_w_genres.csv', iterator=True, chunksize=1000)
+data_w_genre =pd.concat(data_w_genre, ignore_index=True)
 
 data_w_genre['genres_upd'] = data_w_genre['genres'].apply(lambda x: [re.sub(' ','_',i) for i in re.findall(r"'([^']*)'", x)])
 
@@ -119,9 +121,9 @@ def create_feature_set(df, float_cols):
     #tfidf genre lists
     tfidf = TfidfVectorizer()
     tfidf_matrix =  tfidf.fit_transform(df['consolidates_genre_lists'].apply(lambda x: " ".join(x)))
-    genre_df = pd.DataFrame(tfidf_matrix)#actual crasher
-    genre_df.columns = ['genre' + "|" + i for i in tfidf.get_feature_names()]
-    genre_df.reset_index(drop = True, inplace=True)
+    genre_df = pd.DataFrame(tfidf_matrix.toarray())#actual crasher
+    # genre_df.columns = ['genre' + "|" + i for i in tfidf.get_feature_names()]
+    # genre_df.reset_index(drop = True, inplace=True)
 
     explicity_ohe = ohe_prep(df, 'explicit','exp')    
     year_ohe = ohe_prep(df, 'year','year') * 0.5
