@@ -130,7 +130,7 @@ def suggester(query):
       return  non_playlist_top15
   ######
   top15 = generate_recommendation(spotify_data, playlist_vector, nonplaylist_df) 
-  return top15.to_json(orient='records')
+  return json.loads(top15.to_json(orient='records'))
   ######
 
 
