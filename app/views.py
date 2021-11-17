@@ -18,5 +18,5 @@ from . import suggest
 class PlantsSuggest(APIView):
     def get(self, request, format=None):
         
-       
-        return Response({'result':'result'})            
+        theres = suggest.suggester()
+        return Response({'songs':theres})            
