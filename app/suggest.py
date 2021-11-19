@@ -9,6 +9,7 @@ from datetime import datetime
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics.pairwise import cosine_similarity
 import json
+from decouple import config,Csv
 ####
 def suggester(query):
   spotify_data = pd.read_csv('SpotifyFeatures.csv')
@@ -46,8 +47,8 @@ def suggester(query):
 
 
   #######
-  client_id = '4c1e304bc5ba4fb780d3ce00a68a55fd'
-  client_secret= 'ecbafc776986435cb6800d6f05edf576'
+  client_id = config("client_id")
+  client_secret= config("client_secret")
 
   #######
 
